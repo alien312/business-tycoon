@@ -15,9 +15,8 @@ namespace Source.Simulation.Root.Installers
         #region InstallState
         Contexts contexts;
         EntitiesContainer entites;
-        /*GroupsContainer groups;
-        CollectorsContainer collectors;
-        [SerializeField] CoreStateProperty state = new CoreStateProperty();
+        GameGroup businesses;
+        /*CollectorsContainer collectors;
         CoreSignals signals = new CoreSignals();*/
         #endregion
     
@@ -34,7 +33,8 @@ namespace Source.Simulation.Root.Installers
             InstallCoreSettings();
             InstallEntities();
             InstallSystems();
-            Container.BindInterfacesTo<ZenjectToEcsTransformer>().AsSingle().WithArguments(_installInfo).NonLazy();
+            InstallUI();
+            InstallZenjectToEcsTransporting();
         }
         
         void InstallContexts()
@@ -46,7 +46,6 @@ namespace Source.Simulation.Root.Installers
         void InstallSystems()
         {
             Add<CreateSystem>(entites.Player);
-            Add<HelloWorldSystem>();
         }
         
         void InstallEntities()
@@ -55,6 +54,9 @@ namespace Source.Simulation.Root.Installers
             {
                 Player = contexts.Game.CreateEntity()
             };
+
+            businesses = contexts.Game.GetGroup()
+                .With.BusinessId;
         }
 
         void InstallCoreSettings()
@@ -62,6 +64,23 @@ namespace Source.Simulation.Root.Installers
             Container.BindInstance(settings.Businesses).AsSingle().IfNotBound();
         }
         
+        void InstallUI()
+        {
+            Container.BindInstance(settings.UiSettings).AsSingle();
+            Container.BindInstance(entites).AsSingle().WhenInjectedInto<CoreUIInstaller>();
+            Container.BindInstance(businesses).AsSingle().WhenInjectedInto<CoreUIInstaller>();
+            Container.Bind(typeof(MainWindow))
+                .FromSubContainerResolve()
+                .ByInstaller<CoreUIInstaller>()
+                .WithKernel()
+                .AsSingle();
+        }
+        
+        void InstallZenjectToEcsTransporting()
+        {
+            Container.BindInterfacesTo<ZenjectToEcsTransporting>().AsSingle().WithArguments(_installInfo).NonLazy();
+        }
+
         private void Add<TSystem>(params object[] optionalArguments) where TSystem : ISystem
         {
             Container.InstallSystem<TSystem>(_installInfo, optionalArguments);

@@ -3,5 +3,6 @@
     public class EntitiesContainer
     {
         public GameEntity Player;
+        public GameEntity[] Businesses;
     }
 }

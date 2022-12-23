@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c67454cb26d8304f985fef078f7c38a, type: 3}
   m_Name: CoffeeBusinessSettings
   m_EditorClassIdentifier: 
-  businessID: 
+  businessID: Business2
   incomeTime: 0
   baseCost: 0
   baseIncome: 0

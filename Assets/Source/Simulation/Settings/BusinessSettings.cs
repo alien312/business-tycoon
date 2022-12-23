@@ -11,8 +11,11 @@ namespace Source.Simulation.Settings
         [SerializeField] private float baseCost;
         [SerializeField] private float baseIncome;
         [SerializeField] private Upgrade[] upgrades;
+        [SerializeField] private bool isUnlockedByDefault;
 
         public string BusinessId => businessID;
+
+        public bool IsUnlockedByDefault => isUnlockedByDefault;
     }
 
     [Serializable]

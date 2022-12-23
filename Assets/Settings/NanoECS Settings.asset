@@ -19,3 +19,4 @@ MonoBehaviour:
     MinEntitiesPoolSize: 64
   GeneratedFolderPath: Generated/
   SourceFolderPath: Source/
+  TriggerGenerationOnSourceChange: 0

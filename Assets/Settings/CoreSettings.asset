@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 539dad4d73304b57b6774ecbf7067991, type: 3}
-  m_Name: Businesses
+  m_Script: {fileID: 11500000, guid: 12220ebff31d4d739c60c16f1323827d, type: 3}
+  m_Name: CoreSettings
   m_EditorClassIdentifier: 
-  businessesSettings: []
+  business: {fileID: 11400000, guid: 4c12331814c4e8b43be44ca423d1c7c8, type: 2}
+  uiSettings: {fileID: 11400000, guid: 580feba8f238a3b459f6335e37a3d4e5, type: 2}

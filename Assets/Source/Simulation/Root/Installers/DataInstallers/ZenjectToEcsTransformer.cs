@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Source.Simulation.Root.Installers.DataInstallers
 {
-    public class ZenjectToEcsTransformer : IInitializable, ITickable, IFixedTickable, System.IDisposable
+    public class ZenjectToEcsTransporting : IInitializable, ITickable, IFixedTickable, System.IDisposable
     {
         [Inject] InstallSettings installSettings;
         NanoEcs.Systems systems;

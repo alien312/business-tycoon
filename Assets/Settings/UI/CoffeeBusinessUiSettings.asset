@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b433c5f4db694992a10c906742820f1d, type: 3}
   m_Name: CoffeeBusinessUiSettings
   m_EditorClassIdentifier: 
-  businessID: 
-  titleValue: 
-  upgradeTitleValues: []
+  businessID: Business2
+  titleValue: "\u041A\u043E\u0444\u0435\u0439\u043D\u044F"
+  upgradeTitleValues:
+  - "100% \u0430\u0440\u0430\u0431\u0438\u043A\u0430"
+  - "\u0420\u0430\u0441\u0442\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u043C\u043E\u043B\u043E\u043A\u043E"

@@ -666,7 +666,8 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: NANOECS_DEBUG
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

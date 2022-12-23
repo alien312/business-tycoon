@@ -6,7 +6,7 @@ namespace Source.Simulation.Root.Installers
 {
     public class ProjectInstaller : MonoInstaller<ProjectInstaller>
     {
-        [SerializeField] private CoreSettings businessSettings;
+        [SerializeField] private CoreSettings coreSettings;
 
         public override void InstallBindings()
         {
@@ -16,12 +16,12 @@ namespace Source.Simulation.Root.Installers
 
         private void InstantiateProjectSettings()
         {
-            businessSettings = Instantiate(businessSettings);
+            coreSettings = Instantiate(coreSettings);
         }
 
         private void InstallProjectSettings()
         {
-            Container.BindInstance(businessSettings).AsSingle();
+            Container.BindInstance(coreSettings).AsSingle();
         }
     }
 }

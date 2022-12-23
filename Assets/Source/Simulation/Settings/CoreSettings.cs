@@ -6,8 +6,9 @@ namespace Source.Simulation.Settings
     public class CoreSettings : ScriptableObject
     {
         [SerializeField] private Businesses business;
-        [SerializeField] private BusinessUiSettings businessUiSettings;
+        [SerializeField] private UiSettings uiSettings;
 
         public Businesses Businesses => business;
+        public UiSettings UiSettings => uiSettings;
     }
 }

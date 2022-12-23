@@ -8,5 +8,10 @@ namespace Source.Simulation.Settings
         [SerializeField] private string businessID;
         [SerializeField] private string titleValue;
         [SerializeField] private string[] upgradeTitleValues;
+
+
+        public string BusinessID => businessID;
+
+        public string TitleValue => titleValue;
     }
 }

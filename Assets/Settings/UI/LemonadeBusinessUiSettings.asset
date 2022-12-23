@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b433c5f4db694992a10c906742820f1d, type: 3}
   m_Name: LemonadeBusinessUiSettings
   m_EditorClassIdentifier: 
-  businessID: 
-  titleValue: 
-  upgradeTitleValues: []
+  businessID: Business1
+  titleValue: "\u041A\u0438\u043E\u0441\u043A \u0441 \u043B\u0435\u043C\u043E\u043D\u0430\u0434\u043E\u043C"
+  upgradeTitleValues:
+  - "\u0421\u0432\u0435\u0436\u0438\u0435 \u043B\u0435\u043C\u043E\u043D\u044B"
+  - "\u041B\u0451\u0434"
