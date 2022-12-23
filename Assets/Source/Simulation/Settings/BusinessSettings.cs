@@ -16,6 +16,12 @@ namespace Source.Simulation.Settings
         public string BusinessId => businessID;
 
         public bool IsUnlockedByDefault => isUnlockedByDefault;
+
+        public float BaseIncome => baseIncome;
+
+        public float BaseCost => baseCost;
+
+        public float IncomeTime => incomeTime;
     }
 
     [Serializable]

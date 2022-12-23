@@ -15,12 +15,7 @@ public class MainWindow : MonoBehaviour, Iinitializable
     [Inject] GameGroup businessesGroup; 
 
     private List<BusinessView> _businessViews = new List<BusinessView>();
-
-    public void Initialize()
-    {
-        Debug.Log("MainWindow");
-    }
-
+    
     private void Start()
     {
         foreach (var business in businessesGroup)
@@ -32,5 +27,10 @@ public class MainWindow : MonoBehaviour, Iinitializable
                 _businessViews.Add(uiFactory.CreateBusinessView(settings.BusinessViewPrefab, container, uiSettings, business)); 
             }
         }
+    }
+
+    public void Initialize()
+    {
+        Debug.Log("hz");
     }
 }

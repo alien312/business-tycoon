@@ -286,9 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5134a1e75b9f41b8bad78feb9c26b429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: {fileID: 0}
-  level: {fileID: 0}
-  income: {fileID: 0}
+  title: {fileID: 512868011667800239}
+  level: {fileID: 512868011679240903}
+  income: {fileID: 512868010532740190}
 --- !u!1 &512868011072876544
 GameObject:
   m_ObjectHideFlags: 0

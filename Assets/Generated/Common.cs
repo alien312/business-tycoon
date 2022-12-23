@@ -9,34 +9,25 @@ using NanoEcs;
 //------------------------------------------------------------------------------
 
 
-public partial class ColorComponent : ComponentEcs 
-{
-    public UnityEngine.Color Value;
-}
-public partial class MessageComponent : ComponentEcs 
+public partial class BusinessIdComponent : ComponentEcs 
 {
     public string Value;
 }
-public partial class NameComponent : ComponentEcs 
-{
-    public string Value;
-}
-public partial class PositionComponent : ComponentEcs 
-{
-    public float X;
-    public float Y;
-}
-public partial class ReferenceComponent : ComponentEcs 
-{
-    public GameEntity Value;
-}
-public partial class ReferencesComponent : ComponentEcs 
-{
-    public NanoList<GameEntity> List;
-}
-public partial class SpeedComponent : ComponentEcs 
+public partial class IncomeProgressComponent : ComponentEcs 
 {
     public float Value;
+}
+public partial class IncomeValueComponent : ComponentEcs 
+{
+    public float Value;
+}
+public partial class LevelComponent : ComponentEcs 
+{
+    public int Value;
+}
+public partial class SettingsComponent : ComponentEcs 
+{
+    public object Value;
 }
 public partial class Contexts : IContext
 {
