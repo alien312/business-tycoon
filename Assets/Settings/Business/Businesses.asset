@@ -15,3 +15,6 @@ MonoBehaviour:
   businessesSettings:
   - {fileID: 11400000, guid: a8a8ff81f7863cf4193da33403e766a2, type: 2}
   - {fileID: 11400000, guid: b11e88a8d5a63a641a8a0da1ce61bb86, type: 2}
+  - {fileID: 11400000, guid: 2c7aa8aad3b1cd0458316bb3c27c0c7b, type: 2}
+  - {fileID: 11400000, guid: 521ac7c194030de4a946ff81dd7a808b, type: 2}
+  - {fileID: 11400000, guid: 83f528b65e4c58440aceb01909208934, type: 2}

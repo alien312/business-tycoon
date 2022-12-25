@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: CoffeeBusinessSettings
   m_EditorClassIdentifier: 
   businessID: Business2
-  incomeTime: 0
-  baseCost: 0
-  baseIncome: 0
-  upgrades: []
+  incomeTime: 6
+  baseCost: 40
+  baseIncome: 40
+  modifiers:
+  - cost: 1200
+    incomeMultiplayer: 1
+  - cost: 4000
+    incomeMultiplayer: 2
+  isUnlockedByDefault: 0

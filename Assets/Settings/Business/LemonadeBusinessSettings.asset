@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: LemonadeBusinessSettings
   m_EditorClassIdentifier: 
   businessID: Business1
-  incomeTime: 0
-  baseCost: 0
-  baseIncome: 0
-  upgrades:
-  - cost: 0
-    incomeMultiplayer: 0
-  - cost: 0
-    incomeMultiplayer: 0
+  incomeTime: 3
+  baseCost: 3
+  baseIncome: 3
+  modifiers:
+  - cost: 50
+    incomeMultiplayer: 0.5
+  - cost: 400
+    incomeMultiplayer: 1
+  isUnlockedByDefault: 1

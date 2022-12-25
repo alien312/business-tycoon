@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: LemonadeBusinessUiSettings
   m_EditorClassIdentifier: 
   businessID: Business1
-  titleValue: "\u041A\u0438\u043E\u0441\u043A \u0441 \u043B\u0435\u043C\u043E\u043D\u0430\u0434\u043E\u043C"
-  upgradeTitleValues:
-  - "\u0421\u0432\u0435\u0436\u0438\u0435 \u043B\u0435\u043C\u043E\u043D\u044B"
-  - "\u041B\u0451\u0434"
+  titleValue: "\"\u041A\u0438\u043E\u0441\u043A \u0441 \u043B\u0438\u043C\u043E\u043D\u0430\u0434\u043E\u043C\""
+  modifierButtonPrefab: {fileID: 5442945156314705083, guid: fe6f025a6f8bd6743b05e12690b109ec, type: 3}
+  modifierTitles:
+  - "\"\u041B\u0451\u0434\""
+  - "\"\u042D\u043A\u0437\u043E\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0444\u0440\u0443\u043A\u0442\u044B\""

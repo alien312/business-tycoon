@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b433c5f4db694992a10c906742820f1d, type: 3}
+  m_Name: RestaurantBusinessUiSettings
+  m_EditorClassIdentifier: 
+  businessID: Business3
+  titleValue: "\"\u0420\u0435\u0441\u0442\u043E\u0440\u0430\u043D\""
+  modifierButtonPrefab: {fileID: 5442945156314705083, guid: fe6f025a6f8bd6743b05e12690b109ec, type: 3}
+  modifierTitles:
+  - "\"\u041C\u043E\u043B\u0435\u043A\u0443\u043B\u044F\u0440\u043D\u0430\u044F \u043A\u0443\u0445\u043D\u044F\""
+  - "\"\u0417\u0432\u0435\u0437\u0434\u0430 \u041C\u0438\u0448\u043B\u0435\u043D\""

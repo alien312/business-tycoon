@@ -1,4 +1,5 @@
 using NanoEcs;
+using Source.Services;
 using Source.Simulation.Root.Installers.DataInstallers;
 using Source.Simulation.Settings;
 using Source.Simulation.Systems;
@@ -16,6 +17,7 @@ namespace Source.Simulation.Root.Installers
         Contexts contexts;
         EntitiesContainer entites;
         GameGroup businesses;
+        GameGroup activeBusinesses;
         /*CollectorsContainer collectors;
         CoreSignals signals = new CoreSignals();*/
         #endregion
@@ -33,6 +35,7 @@ namespace Source.Simulation.Root.Installers
             InstallCoreSettings();
             InstallEntities();
             InstallSystems();
+            InstallServices();
             InstallUI();
             InstallZenjectToEcsTransporting();
         }
@@ -46,6 +49,8 @@ namespace Source.Simulation.Root.Installers
         void InstallSystems()
         {
             Add<CreateSystem>(entites.Player);
+            Add<ProgressSystem>(businesses, contexts);
+            Add<IncomeSystem>(businesses, entites.Player);
         }
         
         void InstallEntities()
@@ -57,17 +62,27 @@ namespace Source.Simulation.Root.Installers
 
             businesses = contexts.Game.GetGroup()
                 .With.BusinessId;
+
+            /*activeBusinesses = contexts.Game.GetGroup()
+                .With.BusinessId
+                .With.Active;*/
         }
 
         void InstallCoreSettings()
         {
             Container.BindInstance(settings.Businesses).AsSingle().IfNotBound();
         }
+
+        void InstallServices()
+        {
+            Container.Bind<BusinessService>().AsSingle();
+            Container.Bind<PlayerService>().AsSingle();
+        }
         
         void InstallUI()
         {
             Container.BindInstance(settings.UiSettings).AsSingle();
-            Container.BindInstance(entites).AsSingle().WhenInjectedInto<CoreUIInstaller>();
+            Container.BindInstance(entites.Player).AsSingle().WhenInjectedInto<CoreUIInstaller>();
             Container.BindInstance(businesses).AsSingle().WhenInjectedInto<CoreUIInstaller>();
             Container.Bind(typeof(MainWindow))
                 .FromSubContainerResolve()

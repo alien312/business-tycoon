@@ -10,24 +10,45 @@ namespace Source.Simulation.Settings
         [SerializeField] private float incomeTime;
         [SerializeField] private float baseCost;
         [SerializeField] private float baseIncome;
-        [SerializeField] private Upgrade[] upgrades;
+        [SerializeField] private Modifier[] modifiers;
         [SerializeField] private bool isUnlockedByDefault;
-
-        public string BusinessId => businessID;
+        
 
         public bool IsUnlockedByDefault => isUnlockedByDefault;
-
+        
+        public string BusinessId => businessID;
         public float BaseIncome => baseIncome;
-
         public float BaseCost => baseCost;
-
         public float IncomeTime => incomeTime;
+
+        public float GetModifierCost(int index)
+        {
+            if (index < ModifiersCount)
+            {
+                return modifiers[index].cost;
+            }
+
+            Debug.LogError("");
+            return 0;
+        }
+        public float GetModifierMultiplayer(int index)
+        {
+            if (index < ModifiersCount)
+            {
+                return modifiers[index].incomeMultiplayer;
+            }
+
+            Debug.LogError("");
+            return 0;
+            
+        }
+        public int ModifiersCount => modifiers.Length;
     }
 
     [Serializable]
-    internal struct Upgrade
+    internal struct Modifier
     {
-        [SerializeField] private float cost;
-        [SerializeField] private float incomeMultiplayer;
+        [SerializeField] internal float cost;
+        [SerializeField] internal float incomeMultiplayer;
     }
 }

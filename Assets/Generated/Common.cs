@@ -9,9 +9,17 @@ using NanoEcs;
 //------------------------------------------------------------------------------
 
 
+public partial class BalanceComponent : ComponentEcs 
+{
+    public float Value;
+}
 public partial class BusinessIdComponent : ComponentEcs 
 {
     public string Value;
+}
+public partial class CostComponent : ComponentEcs 
+{
+    public float Value;
 }
 public partial class IncomeProgressComponent : ComponentEcs 
 {
@@ -24,6 +32,10 @@ public partial class IncomeValueComponent : ComponentEcs
 public partial class LevelComponent : ComponentEcs 
 {
     public int Value;
+}
+public partial class ModifiersComponent : ComponentEcs 
+{
+    public NanoList<float> Value;
 }
 public partial class SettingsComponent : ComponentEcs 
 {
