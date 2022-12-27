@@ -1,4 +1,5 @@
-﻿using Source.Simulation.Settings;
+﻿using Source.Data;
+using Source.Simulation.Settings;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,8 @@ namespace Source.Simulation.Root.Installers
         {
             InstantiateProjectSettings();
             InstallProjectSettings();
+            InstallData();
+            Container.BindInterfacesTo<SaveLoadHandler>().AsSingle().NonLazy();
         }
 
         private void InstantiateProjectSettings()
@@ -22,6 +25,12 @@ namespace Source.Simulation.Root.Installers
         private void InstallProjectSettings()
         {
             Container.BindInstance(coreSettings).AsSingle();
+        }
+
+        private void InstallData()
+        {
+            var data = new SessionData();
+            Container.Bind<SessionData>().AsSingle();
         }
     }
 }

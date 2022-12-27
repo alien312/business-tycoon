@@ -56,7 +56,8 @@ namespace Source.UI
                     index = i,
                     title = uiSettings.GetModifierTitle(i),
                     prise = _businessService.GetModifierCost(_businessID, i),
-                    multiplayer = _businessService.GetModifierMultiplayer(_businessID, i)
+                    multiplayer = _businessService.GetModifierMultiplayer(_businessID, i),
+                    isBought = _businessService.GetModifierBoughtState(_businessID, i)
                 };
                 modifierButton.Initialize(_businessService, _businessID, info, _playerService);
                 modifierButton.Clicked += UpdateView;

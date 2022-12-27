@@ -5,12 +5,10 @@ namespace Source.Services
 {
     public class PlayerService
     {
-        public ReadOnlyReactiveProperty<float> BalanceStream => _balanceStream.ToReadOnlyReactiveProperty();
-        public float PlayerBalance => _player.Balance.Value;
-        
         private IObservable<float> _balanceStream;
         private GameEntity _player;
-        
+
+        #region API
         public void RegisterPlayer(GameEntity player)
         {
             _player = player;
@@ -18,9 +16,13 @@ namespace Source.Services
             _balanceStream = player.ObserveEveryValueChanged(p => p.Balance.Value);
         }
 
+        public ReadOnlyReactiveProperty<float> BalanceStream => _balanceStream.ToReadOnlyReactiveProperty();
+        public float PlayerBalance => _player.Balance.Value;
+        
         public void ChangeBalance(float value)
         {
             _player.Balance.Value += value;
         }
+        #endregion
     }
 }

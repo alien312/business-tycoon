@@ -9,11 +9,15 @@ namespace Source.Services
 {
     public class BusinessService
     {
+        #region Dependencies
         [Inject] private PlayerService playerService;
-        
-        
+        #endregion
+
+        #region State
         private readonly Dictionary<string, BusinessInfo> _businesses = new ();
-        
+        #endregion
+
+        #region API
         public void RegisterBusiness(string id, GameEntity business)
         {
             if (_businesses.ContainsKey(id))
@@ -46,7 +50,7 @@ namespace Source.Services
                     info.Entity.IsActive = true;
                 }
                 info.Entity.Cost.Value = info.Settings.BaseCost * (info.Entity.Level.Value + 1);
-                info.Entity.IncomeValue.Value = info.Settings.BaseIncome * (info.Entity.Level.Value + info.Entity.Modifiers.Value.Sum());
+                info.Entity.IncomeValue.Value = info.Settings.BaseIncome * info.Entity.Level.Value * (1 + info.Entity.Modifiers.Value.Sum());
             }
         }
         public void ApplyModifier(string id, int index)
@@ -59,7 +63,7 @@ namespace Source.Services
                     var m = info.Entity.Modifiers.Value;
                     m[index] = info.Settings.GetModifierMultiplayer(index);
                     info.Entity.Modifiers.Value = m;
-                    info.Entity.IncomeValue.Value = info.Settings.BaseIncome * (info.Entity.Level.Value + info.Entity.Modifiers.Value.Sum());
+                    info.Entity.IncomeValue.Value = info.Settings.BaseIncome * info.Entity.Level.Value * (1 + info.Entity.Modifiers.Value.Sum());
                 }
             }
         }
@@ -129,7 +133,17 @@ namespace Source.Services
             
             return 0;
         }
-
+        public bool GetModifierBoughtState(string id, int index)
+        {
+            if (TryGetBusinessInfo(id, out var info))
+            {
+                return info.Entity.Modifiers.Value[index] != 0;
+            }
+            
+            return false;
+        }
+        #endregion
+        
         private bool TryGetBusinessInfo(string id, out BusinessInfo info)
         {
             if (!_businesses.ContainsKey(id))

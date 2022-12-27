@@ -7,15 +7,10 @@ namespace Source.UI
 {
     public class UiFactory
     {
+        #region Dependencies
         [Inject] private BusinessService _businessService;
         [Inject] private PlayerService _playerService;
-        
-        private GameEntity _player;
-
-        public UiFactory(GameEntity player)
-        {
-            _player = player;
-        }
+        #endregion
         
         public BusinessView CreateBusinessUiItem(GameObject prefab, Transform parent, BusinessUiSettings uiSettings, string businessId)
         {

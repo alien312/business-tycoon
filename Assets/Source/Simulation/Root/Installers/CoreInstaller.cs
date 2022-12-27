@@ -1,4 +1,6 @@
 using NanoEcs;
+using Source.Data;
+using Source.Handlers;
 using Source.Services;
 using Source.Simulation.Root.Installers.DataInstallers;
 using Source.Simulation.Settings;
@@ -10,7 +12,8 @@ namespace Source.Simulation.Root.Installers
     public class CoreInstaller : MonoInstaller
     {
         #region Dependencies
-        [Inject] private CoreSettings settings;
+        [Inject] CoreSettings settings;
+        [Inject] SessionData sessionData;
         #endregion
         
         #region InstallState
@@ -18,8 +21,6 @@ namespace Source.Simulation.Root.Installers
         EntitiesContainer entites;
         GameGroup businesses;
         GameGroup activeBusinesses;
-        /*CollectorsContainer collectors;
-        CoreSignals signals = new CoreSignals();*/
         #endregion
     
         private readonly InstallSettings _installInfo = new InstallSettings();
@@ -48,6 +49,16 @@ namespace Source.Simulation.Root.Installers
         
         void InstallSystems()
         {
+            Container.Bind<ApplicationEventsHandler>()
+                .FromNewComponentOnNewGameObject().AsSingle().NonLazy();
+            Container.BindInterfacesTo<SaveSystem>().AsSingle()
+                .WithArguments(new object[] 
+                {
+                    sessionData,
+                    entites.Player,
+                    businesses
+                }).NonLazy();
+            
             Add<CreateSystem>(entites.Player);
             Add<ProgressSystem>(businesses, contexts);
             Add<IncomeSystem>(businesses, entites.Player);
@@ -62,10 +73,6 @@ namespace Source.Simulation.Root.Installers
 
             businesses = contexts.Game.GetGroup()
                 .With.BusinessId;
-
-            /*activeBusinesses = contexts.Game.GetGroup()
-                .With.BusinessId
-                .With.Active;*/
         }
 
         void InstallCoreSettings()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Source.Simulation.Settings
 {
@@ -8,5 +9,15 @@ namespace Source.Simulation.Settings
         [SerializeField] private BusinessSettings[] businessesSettings;
 
         public BusinessSettings[] BusinessesSettings => businessesSettings;
+
+        public bool HasBusinessWithId(string businessId)
+        {
+            return businessesSettings.Count(b => b.BusinessId.Equals(businessId)) != 0;
+        }
+
+        public BusinessSettings GetBusinessSettingsWithId(string id)
+        {
+            return businessesSettings.First(b => b.BusinessId.Equals(id));
+        }
     }
 }
