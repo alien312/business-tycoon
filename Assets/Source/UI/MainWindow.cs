@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using NanoEcs;
 using Source.Simulation.Settings;
 using Source.UI;
@@ -24,14 +25,18 @@ public class MainWindow : MonoBehaviour, Iinitializable
     
 
     private List<BusinessView> _businessViews = new List<BusinessView>();
+    private StringBuilder _sb;
     
     private void Start()
     {
+        _sb = new StringBuilder();
         player
             .ObserveEveryValueChanged(e => e.Balance.Value)
             .Subscribe(value =>
             {
-                BalanceValue.text = value.ToString();
+                _sb.Clear();
+                _sb.Append($"{value}$");
+                BalanceValue.text = _sb.ToString();
             })
             .AddTo(this);
         
