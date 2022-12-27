@@ -17,4 +17,4 @@ MonoBehaviour:
   modifierButtonPrefab: {fileID: 5442945156314705083, guid: fe6f025a6f8bd6743b05e12690b109ec, type: 3}
   modifierTitles:
   - "\"\u0420\u0430\u0441\u0442\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u043C\u043E\u043B\u043E\u043A\u043E\""
-  - "\"100% \u0410\u0440\u0430\u0431\u0438\u043A\u0430\""
+  - "\"100% \u0430\u0440\u0430\u0431\u0438\u043A\u0430\""
