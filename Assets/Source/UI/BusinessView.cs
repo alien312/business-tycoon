@@ -20,7 +20,7 @@ namespace Source.UI
         #endregion
 
         #region State
-        BusinessService _businessService;
+        private BusinessService _businessService;
         private PlayerService _playerService;
         private string _businessID;
         #endregion

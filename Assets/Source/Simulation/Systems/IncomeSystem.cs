@@ -5,8 +5,8 @@ namespace Source.Simulation.Systems
 {
     public class IncomeSystem : SystemEcs, IExecutable
     {
-        private GameEntity _player;
-        private GameGroup _businesses;
+        private readonly GameEntity _player;
+        private readonly GameGroup _businesses;
         
         public IncomeSystem(GameGroup businesses, GameEntity player)
         {

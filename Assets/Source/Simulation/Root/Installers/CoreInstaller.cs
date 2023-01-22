@@ -20,7 +20,9 @@ namespace Source.Simulation.Root.Installers
         Contexts contexts;
         EntitiesContainer entites;
         GameGroup businesses;
+        GameGroup modifiers;
         GameGroup activeBusinesses;
+        GameCollector modifierAdded;
         #endregion
     
         private readonly InstallSettings _installInfo = new InstallSettings();
@@ -73,6 +75,9 @@ namespace Source.Simulation.Root.Installers
 
             businesses = contexts.Game.GetGroup()
                 .With.BusinessId;
+            
+            modifiers = contexts.Game.GetGroup()
+                .With.Modifier;
         }
 
         void InstallCoreSettings()

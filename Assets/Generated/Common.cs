@@ -33,6 +33,10 @@ public partial class LevelComponent : ComponentEcs
 {
     public int Value;
 }
+public partial class ModifierComponent : ComponentEcs 
+{
+    public object Type;
+}
 public partial class ModifiersComponent : ComponentEcs 
 {
     public NanoList<float> Value;
@@ -40,6 +44,10 @@ public partial class ModifiersComponent : ComponentEcs
 public partial class SettingsComponent : ComponentEcs 
 {
     public object Value;
+}
+public partial class TargetComponent : ComponentEcs 
+{
+    public GameEntity Value;
 }
 public partial class Contexts : IContext
 {

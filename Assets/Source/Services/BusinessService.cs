@@ -36,7 +36,7 @@ namespace Source.Services
         public bool CanBuyModifier(string id, int index)
         {
             if (! TryGetBusinessInfo(id, out var info)) return false;
-            return (playerService.PlayerBalance >= info.Settings.GetModifierCost(index)) && !(info.IsModifierBought(index));
+            return (playerService.PlayerBalance >= info.Settings.GetModifierCostOld(index)) && !(info.IsModifierBought(index));
         }
         
         public void UpdateBusinessLevel(string id)
@@ -59,7 +59,7 @@ namespace Source.Services
             {
                 if (index < info.Settings.ModifiersCount)
                 {
-                    playerService.ChangeBalance(-info.Settings.GetModifierCost(index));
+                    playerService.ChangeBalance(-info.Settings.GetModifierCostOld(index));
                     var m = info.Entity.Modifiers.Value;
                     m[index] = info.Settings.GetModifierMultiplayer(index);
                     info.Entity.Modifiers.Value = m;
@@ -119,7 +119,7 @@ namespace Source.Services
         {
             if (TryGetBusinessInfo(id, out var info))
             {
-                return info.Settings.GetModifierCost(index);
+                return info.Settings.GetModifierCostOld(index);
             }
             
             return 0;

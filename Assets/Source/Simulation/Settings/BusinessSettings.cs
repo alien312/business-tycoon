@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Source.Simulation.Settings.Modifiers;
 using UnityEngine;
 
 namespace Source.Simulation.Settings
@@ -10,18 +12,26 @@ namespace Source.Simulation.Settings
         [SerializeField] private float incomeTime;
         [SerializeField] private float baseCost;
         [SerializeField] private float baseIncome;
-        [SerializeField] private Modifier[] modifiers;
+        [SerializeField] private ModifierOld[] modifiers;
+        [field: SerializeReference] public List<Modifier> Modifiers { get; private set; }
         [SerializeField] private bool isUnlockedByDefault;
-        
 
+        #region Editor
+        public void AddModifier(Modifier modifier)
+        {
+            Modifiers.Add(modifier);
+        }
+        #endregion
+        
         public bool IsUnlockedByDefault => isUnlockedByDefault;
         
         public string BusinessId => businessID;
         public float BaseIncome => baseIncome;
         public float BaseCost => baseCost;
         public float IncomeTime => incomeTime;
-
-        public float GetModifierCost(int index)
+        public int ModifiersCount => modifiers.Length;
+        
+        public float GetModifierCostOld(int index)
         {
             if (index < ModifiersCount)
             {
@@ -42,11 +52,10 @@ namespace Source.Simulation.Settings
             return 0;
             
         }
-        public int ModifiersCount => modifiers.Length;
     }
 
     [Serializable]
-    internal struct Modifier
+    internal struct ModifierOld
     {
         [SerializeField] internal float cost;
         [SerializeField] internal float incomeMultiplayer;
