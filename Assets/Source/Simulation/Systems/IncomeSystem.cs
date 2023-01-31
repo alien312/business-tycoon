@@ -1,5 +1,6 @@
 ﻿using NanoEcs;
 using Source.Simulation.Settings;
+using Source.Simulation.Root;
 
 namespace Source.Simulation.Systems
 {
@@ -18,12 +19,11 @@ namespace Source.Simulation.Systems
         {
             foreach (var business in _businesses)
             {
-                var settings = (BusinessSettings) business.Settings.Value;
                 
-                if (business.IncomeProgress.Value >= settings.IncomeTime)
+                if (business.IncomeProgress.Value >= business.BaseIncomeTime.Value)
                 {
                     _player.Balance.Value += business.IncomeValue.Value;
-                    UnityEngine.Debug.Log($"business {settings.BusinessId} get income {business.IncomeValue.Value}");
+                    UnityEngine.Debug.Log($"business {business.BusinessId} get income {business.IncomeValue.Value}");
                     business.IncomeProgress.Value = 0;
                 }
             }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Source.Simulation.Settings.Modifiers;
+using Source.Data.Modifiers;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -28,9 +28,10 @@ namespace Source.Simulation.Settings
             {
                 if (GUILayout.Button(Regex.Replace(modifierType.Name, "([^^])([A-Z])", "$1 $2")))
                 {
-                    var comp = (Modifier) Activator.CreateInstance(modifierType); 
+                    var comp = (ModifierInfo) Activator.CreateInstance(modifierType); 
                     
                     if(comp == null) return;
+                    comp.BusinessId = _businessSettings.BusinessId;
                     _businessSettings.AddModifier(comp);
                 }
             }
@@ -40,7 +41,7 @@ namespace Source.Simulation.Settings
         private static void OnRecompile()
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            _modifierTypes = assemblies.SelectMany(assembly => assembly.GetTypes()).Where(t=>t.IsSubclassOf(typeof(Modifier))).ToList();
+            _modifierTypes = assemblies.SelectMany(assembly => assembly.GetTypes()).Where(t=>t.IsSubclassOf(typeof(ModifierInfo))).ToList();
         }
     }
 }

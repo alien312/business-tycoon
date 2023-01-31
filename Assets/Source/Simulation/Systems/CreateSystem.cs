@@ -61,11 +61,12 @@ namespace Source.Simulation.Systems
                 {
                     entity.AddLevel(0);
                 }
-
-                entity.AddModifiers(new NanoList<float> {0, 0});
+                
                 entity.AddIncomeValue(business.BaseIncome);
                 entity.AddCost((entity.Level.Value + 1) * business.BaseCost);
-                
+                entity.AddBaseIncomeTime(business.BaseIncomeTime);
+                entity.AddIncreaseIncomeModifier(1);
+                entity.AddReduceIncomeTimeModifier(1);
                 businessService.RegisterBusiness(business.BusinessId, entity);
             }
         }
@@ -91,26 +92,20 @@ namespace Source.Simulation.Systems
                     {
                         entity.IsActive = true;
                     }
-
-                    var m = new NanoList<float>();
-                    for (int i = 0; i < business.BoughtModifiers.Count; i++)
-                    {
-                        if (business.BoughtModifiers[i])
-                        {
-                            m.Add(settings.GetModifierMultiplayer(i));
-                        }
-                        else
-                        {
-                            m.Add(0);
-                        }
-                    }
-                    entity.AddModifiers(m);
-                    entity.AddIncomeValue(settings.BaseIncome * business.Level * (1 + m.Sum()));
+                    
+                    entity.AddIncomeValue(settings.BaseIncome * business.Level);
                     entity.AddCost((entity.Level.Value + 1) * settings.BaseCost);
+                    entity.AddBaseIncomeTime(settings.BaseIncomeTime);
+                    entity.AddIncreaseIncomeModifier(1);
+                    entity.AddReduceIncomeTimeModifier(1);
 
                     businessService.RegisterBusiness(business.BusinessId, entity);
                 }
-                
+            }
+
+            foreach (var modifier in stateData.Modifiers)
+            {
+                businessService.RegisterModifier(modifier.BusinessId, modifier.ModifierId);
             }
         }
     }

@@ -10,12 +10,13 @@ namespace Source.UI
         #region Dependencies
         [Inject] private BusinessService _businessService;
         [Inject] private PlayerService _playerService;
+        [Inject] private ModifiersView _modifiersView;
         #endregion
         
-        public BusinessView CreateBusinessUiItem(GameObject prefab, Transform parent, BusinessUiSettings uiSettings, string businessId)
+        public BusinessView CreateBusinessUiItem(GameObject prefab, Transform parent, GameEntity entity)
         {
             var view = GameObject.Instantiate(prefab, parent).GetComponent<BusinessView>();
-            view.Initialize(uiSettings, _businessService, businessId, _playerService);
+            view.Initialize(entity, _businessService, _playerService, _modifiersView );
             return view;
         }
     }

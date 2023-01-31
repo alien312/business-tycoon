@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Source.Simulation.Settings.Modifiers
+namespace Source.Data.Modifiers
 {
     [Serializable]
-    public class ReduceIncomeTimeModifier : Modifier
+    public class ReduceIncomeTimeModifierInfo : ModifierInfo
     {
         [field: SerializeField] public float Value { get; private set; }
     }

@@ -12,13 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c67454cb26d8304f985fef078f7c38a, type: 3}
   m_Name: CoffeeBusinessSettings
   m_EditorClassIdentifier: 
-  businessID: Business2
-  incomeTime: 6
-  baseCost: 40
-  baseIncome: 40
-  modifiers:
-  - cost: 1200
-    incomeMultiplayer: 1
-  - cost: 4000
-    incomeMultiplayer: 2
-  isUnlockedByDefault: 0
+  <BusinessId>k__BackingField: Business2
+  <Title>k__BackingField: "\"\u041A\u043E\u0444\u0435\u0439\u043D\u044F\""
+  <BaseIncomeTime>k__BackingField: 6
+  <BaseCost>k__BackingField: 40
+  <BaseIncome>k__BackingField: 40
+  <IsUnlockedByDefault>k__BackingField: 0
+  <Modifiers>k__BackingField:
+  - rid: 5992095848231075874
+  - rid: 5992095848231075875
+  references:
+    version: 2
+    RefIds:
+    - rid: 5992095848231075874
+      type: {class: IncreaseIncomeModifierInfo, ns: Source.Data.Modifiers, asm: Assembly-CSharp}
+      data:
+        name: Increase Income Modifier Info
+        <Id>k__BackingField: mod1
+        <Cost>k__BackingField: 1200
+        <Title>k__BackingField: "\"\u0420\u0430\u0441\u0442\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435
+          \u043C\u043E\u043B\u043E\u043A\u043E\""
+        <Value>k__BackingField: 1
+    - rid: 5992095848231075875
+      type: {class: IncreaseIncomeModifierInfo, ns: Source.Data.Modifiers, asm: Assembly-CSharp}
+      data:
+        name: Increase Income Modifier Info
+        <Id>k__BackingField: mod2
+        <Cost>k__BackingField: 4000
+        <Title>k__BackingField: "\"100% \u0430\u0440\u0430\u0431\u0438\u043A\u0430\""
+        <Value>k__BackingField: 2

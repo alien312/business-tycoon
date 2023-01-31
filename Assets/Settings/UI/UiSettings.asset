@@ -12,11 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f43557a61840829591d168fcb581e5, type: 3}
   m_Name: UiSettings
   m_EditorClassIdentifier: 
-  mainWindow: {fileID: 5686166354124764915, guid: b321760185bdc4c48af70c848617d4b0, type: 3}
-  businessViewPrefab: {fileID: 512868010726351881, guid: 5129c182d8368d3409f915cd36f0e163, type: 3}
-  businessUiSettings:
-  - {fileID: 11400000, guid: 51f3dc3ef4b23994683fbb5c882074d4, type: 2}
-  - {fileID: 11400000, guid: 9f8382216f8d1b04d9e0aa6974c85a02, type: 2}
-  - {fileID: 11400000, guid: 67fbae5dc9436d04b9e762e042ded575, type: 2}
-  - {fileID: 11400000, guid: ebdf441f9a819934e8971176e35a5c2e, type: 2}
-  - {fileID: 11400000, guid: b0a3d4db11d31684695670db3787e3b9, type: 2}
+  <MainWindow>k__BackingField: {fileID: 5686166354124764915, guid: b321760185bdc4c48af70c848617d4b0, type: 3}
+  <BusinessViewPrefab>k__BackingField: {fileID: 512868010726351881, guid: 5129c182d8368d3409f915cd36f0e163, type: 3}
+  <ModifiersView>k__BackingField: {fileID: 11400000, guid: 3efda842b67c9244a8e7da7948309469, type: 2}

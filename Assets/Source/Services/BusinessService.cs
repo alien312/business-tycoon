@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Source.Simulation.Settings;
 using UniRx;
 using Zenject;
@@ -11,10 +10,16 @@ namespace Source.Services
     {
         #region Dependencies
         [Inject] private PlayerService playerService;
+        [Inject] private Contexts contexts;
         #endregion
 
         #region State
         private readonly Dictionary<string, BusinessInfo> _businesses = new ();
+        #endregion
+
+        #region Callbacks
+        public Action<string, string> ModifierApplied;
+        public Action LevelUpdateApplied;
         #endregion
 
         #region API
@@ -22,10 +27,25 @@ namespace Source.Services
         {
             if (_businesses.ContainsKey(id))
             {
-                return;;
+                return;
             }
             
             _businesses.Add(id, new BusinessInfo((BusinessSettings) business.Settings.Value, business));
+        }
+        public void RegisterModifier(string businessId, string modifierId)
+        {
+            if (TryGetBusinessInfo(businessId, out var info))
+            {
+                var modInfo = info.Settings.GetModifierInfo(modifierId);
+                if (modInfo != null)
+                {
+                    playerService.ChangeBalance(-modInfo.Cost);
+                    var mod = contexts.Game.CreateEntity();
+                    mod.AddModifier(modInfo);
+                    mod.AddTarget(info.Entity);
+                    info.AddActiveModifier(modifierId);
+                }
+            }
         }
 
         public bool CanBuyLevelUpdate(string id)
@@ -33,10 +53,12 @@ namespace Source.Services
             if (! TryGetBusinessInfo(id, out var info)) return false;
             return playerService.PlayerBalance >= (info.Entity.Level.Value + 1) * info.Settings.BaseCost;
         }
-        public bool CanBuyModifier(string id, int index)
+        public bool CanBuyModifier(string id, string modifierId)
         {
             if (! TryGetBusinessInfo(id, out var info)) return false;
-            return (playerService.PlayerBalance >= info.Settings.GetModifierCostOld(index)) && !(info.IsModifierBought(index));
+            var modInfo = info.Settings.GetModifierInfo(modifierId);
+            if (modInfo == null) return false;
+            return playerService.PlayerBalance >= modInfo.Cost && !info.IsModifierActive(modifierId);
         }
         
         public void UpdateBusinessLevel(string id)
@@ -50,98 +72,10 @@ namespace Source.Services
                     info.Entity.IsActive = true;
                 }
                 info.Entity.Cost.Value = info.Settings.BaseCost * (info.Entity.Level.Value + 1);
-                info.Entity.IncomeValue.Value = info.Settings.BaseIncome * info.Entity.Level.Value * (1 + info.Entity.Modifiers.Value.Sum());
-            }
-        }
-        public void ApplyModifier(string id, int index)
-        {
-            if (TryGetBusinessInfo(id, out var info))
-            {
-                if (index < info.Settings.ModifiersCount)
-                {
-                    playerService.ChangeBalance(-info.Settings.GetModifierCostOld(index));
-                    var m = info.Entity.Modifiers.Value;
-                    m[index] = info.Settings.GetModifierMultiplayer(index);
-                    info.Entity.Modifiers.Value = m;
-                    info.Entity.IncomeValue.Value = info.Settings.BaseIncome * info.Entity.Level.Value * (1 + info.Entity.Modifiers.Value.Sum());
-                }
+                info.Entity.IncomeValue.Value = info.Settings.BaseIncome * info.Entity.Level.Value * info.Entity.IncreaseIncomeModifier.Value;
             }
         }
         
-        public int GetBusinessLevel(string id)
-        {
-            if (TryGetBusinessInfo(id, out var info))
-            {
-                return info.Entity.Level.Value;
-            }
-
-            return 0;
-        }
-        public float GetBusinessUpdateCost(string id)
-        {
-            if (TryGetBusinessInfo(id, out var info))
-            {
-                return info.Entity.Cost.Value;
-            }
-
-            return 0;
-        }
-        public float GetBusinessIncome(string id)
-        {
-            if (TryGetBusinessInfo(id, out var info))
-            {
-                return info.Entity.IncomeValue.Value;
-            }
-
-            return 0;
-        }
-        
-        public IObservable<float> GetBusinessIncomeProgressPercentageStream(string id)
-        {
-            if (TryGetBusinessInfo(id, out var info))
-            {
-                return info.Entity.ObserveEveryValueChanged(b=> b.IncomeProgress.Value / info.Settings.IncomeTime);
-            }
-
-            return null;
-        } 
-
-        public int GetModifiersCount(string id)
-        {
-            if (TryGetBusinessInfo(id, out var info))
-            {
-                return info.Settings.ModifiersCount;
-            }
-
-            return 0;
-        }
-        public float GetModifierCost(string id, int index)
-        {
-            if (TryGetBusinessInfo(id, out var info))
-            {
-                return info.Settings.GetModifierCostOld(index);
-            }
-            
-            return 0;
-        }
-        public float GetModifierMultiplayer(string id, int index)
-        {
-            if (TryGetBusinessInfo(id, out var info))
-            {
-                return info.Settings.GetModifierMultiplayer(index);
-            }
-            
-            return 0;
-        }
-        public bool GetModifierBoughtState(string id, int index)
-        {
-            if (TryGetBusinessInfo(id, out var info))
-            {
-                return info.Entity.Modifiers.Value[index] != 0;
-            }
-            
-            return false;
-        }
         #endregion
         
         private bool TryGetBusinessInfo(string id, out BusinessInfo info)
@@ -156,22 +90,33 @@ namespace Source.Services
             info = _businesses[id];
             return true;
         }
-        
-        struct BusinessInfo
+
+        private readonly struct BusinessInfo
         {
             public readonly BusinessSettings Settings;
-            public GameEntity Entity;
+            public readonly GameEntity Entity;
+            
+            private readonly List<string> _activeModifiers;
 
             public BusinessInfo(BusinessSettings settings, GameEntity entity)
             {
                 Settings = settings;
                 Entity = entity;
+                _activeModifiers = new List<string>();
+                foreach (var mod in settings.Modifiers)
+                {
+                    mod.BusinessId = settings.BusinessId;
+                }
             }
 
-            public bool IsModifierBought(int index)
+            public void AddActiveModifier(string id)
             {
-                if (index > Entity.Modifiers.Value.Count) return false;
-                return Entity.Modifiers.Value[index] != 0;
+                _activeModifiers.Add(id);
+            }
+
+            public bool IsModifierActive(string id)
+            {
+                return _activeModifiers.Contains(id);
             }
         }
     }

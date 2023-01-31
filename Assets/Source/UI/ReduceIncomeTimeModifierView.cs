@@ -5,20 +5,20 @@ using UnityEngine;
 
 namespace Source.UI
 {
-    public class IncreaseIncomeModifierView : ModifierView
+    public class ReduceIncomeTimeModifierView : ModifierView
     {
         [SerializeField] private TMP_Text effectText;
 
         private BusinessService _businessService;
         private PlayerService _playerService;
-        private IncreaseIncomeModifierInfo _modifierInfo;
+        private ReduceIncomeTimeModifierInfo _modifierInfo;
         
         internal override void Initialize(ModifierInfo info, PlayerService playerService, BusinessService businessService)
         {
             base.Initialize(info, playerService, businessService);
 
-            _modifierInfo = (IncreaseIncomeModifierInfo) info;
-            effectText.text = $"+ {_modifierInfo.Value * 100}%";
+            _modifierInfo = (ReduceIncomeTimeModifierInfo) info;
+            effectText.text = $"- {1 + _modifierInfo.Value}X";
         }
     }
 }

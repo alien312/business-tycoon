@@ -13,6 +13,10 @@ public partial class BalanceComponent : ComponentEcs
 {
     public float Value;
 }
+public partial class BaseIncomeTimeComponent : ComponentEcs 
+{
+    public float Value;
+}
 public partial class BusinessIdComponent : ComponentEcs 
 {
     public string Value;
@@ -29,6 +33,10 @@ public partial class IncomeValueComponent : ComponentEcs
 {
     public float Value;
 }
+public partial class IncreaseIncomeModifierComponent : ComponentEcs 
+{
+    public float Value;
+}
 public partial class LevelComponent : ComponentEcs 
 {
     public int Value;
@@ -37,9 +45,9 @@ public partial class ModifierComponent : ComponentEcs
 {
     public object Type;
 }
-public partial class ModifiersComponent : ComponentEcs 
+public partial class ReduceIncomeTimeModifierComponent : ComponentEcs 
 {
-    public NanoList<float> Value;
+    public float Value;
 }
 public partial class SettingsComponent : ComponentEcs 
 {

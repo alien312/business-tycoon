@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using NanoEcs;
 using Source.Simulation.Settings;
+using Source.Simulation.Root;
 using Source.UI;
 using TMPro;
 using UniRx;
@@ -42,12 +43,7 @@ public class MainWindow : MonoBehaviour, Iinitializable
         
         foreach (var business in businessesGroup)
         {
-            var id = business.BusinessId.Value;
-            var uiSettings = settings.GetBusinessUiSettings(id);
-            if (uiSettings != null)
-            {
-                _businessViews.Add(uiFactory.CreateBusinessUiItem(settings.BusinessViewPrefab, container, uiSettings, id)); 
-            }
+            _businessViews.Add(uiFactory.CreateBusinessUiItem(settings.BusinessViewPrefab, container, business));
         }
 
         ElementsScroll.verticalNormalizedPosition = 1;

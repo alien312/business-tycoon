@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
-using Source.Simulation.Settings.Modifiers;
+using System.Linq;
+using Source.Data.Modifiers;
 using UnityEngine;
 
 namespace Source.Simulation.Settings
@@ -8,56 +8,29 @@ namespace Source.Simulation.Settings
     [CreateAssetMenu(fileName = "BusinessSettings", menuName = "GameSettings/BusinessSettings")]
     public class BusinessSettings : ScriptableObject
     {
-        [SerializeField] private string businessID;
-        [SerializeField] private float incomeTime;
-        [SerializeField] private float baseCost;
-        [SerializeField] private float baseIncome;
-        [SerializeField] private ModifierOld[] modifiers;
-        [field: SerializeReference] public List<Modifier> Modifiers { get; private set; }
-        [SerializeField] private bool isUnlockedByDefault;
-
-        #region Editor
-        public void AddModifier(Modifier modifier)
+        [field: SerializeField] public string BusinessId { get; private set; }
+        [field: SerializeField] public string Title { get; private set; }
+        [field: SerializeField] public float BaseIncomeTime { get; private set; }
+        [field: SerializeField] public float BaseCost { get; private set; }
+        [field: SerializeField] public float BaseIncome { get; private set; }
+        [field: SerializeField] public bool IsUnlockedByDefault { get; private set; }
+        [field: SerializeReference] public List<ModifierInfo> Modifiers { get; private set; } = new List<ModifierInfo>();
+        
+        public ModifierInfo GetModifierInfo(string id)
         {
-            Modifiers.Add(modifier);
+            if (Modifiers.Select(m => m.Id).Contains(id))
+            {
+                return Modifiers.First(m => m.Id.Equals(id));
+            }
+            Debug.Log($"Modifier with id: {id} does not exist");
+            return null;
+        }
+        
+        #region Editor
+        public void AddModifier(ModifierInfo modifierInfo)
+        {
+            Modifiers.Add(modifierInfo);
         }
         #endregion
-        
-        public bool IsUnlockedByDefault => isUnlockedByDefault;
-        
-        public string BusinessId => businessID;
-        public float BaseIncome => baseIncome;
-        public float BaseCost => baseCost;
-        public float IncomeTime => incomeTime;
-        public int ModifiersCount => modifiers.Length;
-        
-        public float GetModifierCostOld(int index)
-        {
-            if (index < ModifiersCount)
-            {
-                return modifiers[index].cost;
-            }
-
-            Debug.LogError("");
-            return 0;
-        }
-        public float GetModifierMultiplayer(int index)
-        {
-            if (index < ModifiersCount)
-            {
-                return modifiers[index].incomeMultiplayer;
-            }
-
-            Debug.LogError("");
-            return 0;
-            
-        }
-    }
-
-    [Serializable]
-    internal struct ModifierOld
-    {
-        [SerializeField] internal float cost;
-        [SerializeField] internal float incomeMultiplayer;
     }
 }

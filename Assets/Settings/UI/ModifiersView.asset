@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1497b172b9b4d0cb6134d00c6554f69, type: 3}
+  m_Name: ModifiersView
+  m_EditorClassIdentifier: 
+  <IncreaseIncomeModifierViewSettings>k__BackingField: {fileID: 11400000, guid: a34f86cf7b2aa0243868c223cf35c1ab, type: 2}
+  <ReduceIncomeTimeModifierViewSettings>k__BackingField: {fileID: 11400000, guid: c2123b74027e920468fae8e3313d3eac, type: 2}

@@ -22,7 +22,7 @@ namespace Source.Simulation.Root.Installers
         GameGroup businesses;
         GameGroup modifiers;
         GameGroup activeBusinesses;
-        GameCollector modifierAdded;
+        GameCollector addedModifiers;
         #endregion
     
         private readonly InstallSettings _installInfo = new InstallSettings();
@@ -58,12 +58,14 @@ namespace Source.Simulation.Root.Installers
                 {
                     sessionData,
                     entites.Player,
-                    businesses
+                    businesses,
+                    modifiers
                 }).NonLazy();
             
             Add<CreateSystem>(entites.Player);
             Add<ProgressSystem>(businesses, contexts);
             Add<IncomeSystem>(businesses, entites.Player);
+            Add<ModifiersHandleSystem>(addedModifiers);
         }
         
         void InstallEntities()
@@ -78,6 +80,8 @@ namespace Source.Simulation.Root.Installers
             
             modifiers = contexts.Game.GetGroup()
                 .With.Modifier;
+
+            addedModifiers = modifiers.OnAdd;
         }
 
         void InstallCoreSettings()
@@ -94,6 +98,7 @@ namespace Source.Simulation.Root.Installers
         void InstallUI()
         {
             Container.BindInstance(settings.UiSettings).AsSingle();
+            Container.BindInstance(settings.UiSettings.ModifiersView).AsSingle();
             Container.BindInstance(entites.Player).AsSingle().WhenInjectedInto<CoreUIInstaller>();
             Container.BindInstance(businesses).AsSingle().WhenInjectedInto<CoreUIInstaller>();
             Container.Bind(typeof(MainWindow))
