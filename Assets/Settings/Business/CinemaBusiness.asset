@@ -12,13 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c67454cb26d8304f985fef078f7c38a, type: 3}
   m_Name: CinemaBusiness
   m_EditorClassIdentifier: 
-  businessID: Business4
-  incomeTime: 17
-  baseCost: 1000
-  baseIncome: 1000
-  modifiers:
-  - cost: 15000
-    incomeMultiplayer: 1
-  - cost: 50000
-    incomeMultiplayer: 2
-  isUnlockedByDefault: 0
+  <BusinessId>k__BackingField: Business4
+  <Title>k__BackingField: "\"\u041A\u0438\u043D\u043E\u0442\u0435\u0430\u0442\u0440\""
+  <BaseIncomeTime>k__BackingField: 17
+  <BaseCost>k__BackingField: 1000
+  <BaseIncome>k__BackingField: 1000
+  <IsUnlockedByDefault>k__BackingField: 0
+  <Modifiers>k__BackingField:
+  - rid: 5992095848231075876
+  - rid: 5992095848231075877
+  references:
+    version: 2
+    RefIds:
+    - rid: 5992095848231075876
+      type: {class: IncreaseIncomeModifierInfo, ns: Source.Data.Modifiers, asm: Assembly-CSharp}
+      data:
+        name: Increase Income Modifier Info
+        <Id>k__BackingField: mod1
+        <Cost>k__BackingField: 15000
+        <Title>k__BackingField: "\"\u041A\u043E\u043C\u0444\u043E\u0440\u0442\u043D\u044B\u0435
+          \u0441\u0438\u0434\u0435\u043D\u0438\u044F\""
+        <Value>k__BackingField: 1
+    - rid: 5992095848231075877
+      type: {class: ReduceIncomeTimeModifierInfo, ns: Source.Data.Modifiers, asm: Assembly-CSharp}
+      data:
+        name: Reduce Income Time Modifier Info
+        <Id>k__BackingField: mod2
+        <Cost>k__BackingField: 50000
+        <Title>k__BackingField: "\"VR-\u0437\u0430\u043B\""
+        <Value>k__BackingField: 1

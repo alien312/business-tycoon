@@ -16,14 +16,21 @@ namespace Source.Data
     {
         public float PlayerBalance;
         public List<Business> Businesses = new List<Business>();
+        public List<Modifier> Modifiers = new List<Modifier>();
     }
 
     [Serializable]
-    public class Business
+    public struct Business
     {
         public string BusinessId;
         public int Level;
         public float IncomeProgress;
-        public List<bool> BoughtModifiers = new List<bool>();
+    }
+
+    [Serializable]
+    public struct Modifier
+    {
+        public string ModifierId;
+        public string BusinessId;
     }
 }

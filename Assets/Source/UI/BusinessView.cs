@@ -1,5 +1,7 @@
+using Source.Data.Modifiers;
 using Source.Services;
 using Source.Simulation.Settings;
+using Source.Simulation.Root;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -20,24 +22,52 @@ namespace Source.UI
         #endregion
 
         #region State
-        BusinessService _businessService;
+        private BusinessService _businessService;
         private PlayerService _playerService;
+        private int _businessHC;
         private string _businessID;
         #endregion
         
-        public void Initialize(BusinessUiSettings uiSettings, BusinessService businessService, string businessId, PlayerService playerService)
+        public void Initialize(GameEntity business, BusinessService businessService, PlayerService playerService, ModifiersView modifiersView)
         {
             _businessService = businessService;
-            _businessID = businessId;
             _playerService = playerService;
-            
-            titleText.text = uiSettings.TitleValue;
+
+            var settings = business.Settings<BusinessSettings>();
+            _businessID = settings.BusinessId;
+
+            titleText.text = settings.Title;
             
             levelUpdateButton.onClick.AddListener(OnLevelUpdateButtonClick);
             
-            _businessService.GetBusinessIncomeProgressPercentageStream(_businessID)
-                .Subscribe(SetFillAmount)
+            business
+                .ObserveEveryValueChanged(b => b.IncomeProgress.Value / business.BaseIncomeTime.Value)
+                .Subscribe(v =>
+                {
+                    progress.fillAmount = v;
+                })
                 .AddTo(this);
+
+            business
+                .ObserveEveryValueChanged(b => b.Level.Value)
+                .Subscribe(l =>
+                {
+                    levelText.text = l.ToString();
+                });
+            
+            business
+                .ObserveEveryValueChanged(b => b.IncomeValue.Value)
+                .Subscribe(v =>
+                {
+                    incomeText.text = $"{v}$";
+                });
+            
+            business
+                .ObserveEveryValueChanged(b => b.Cost.Value)
+                .Subscribe(v =>
+                {
+                    levelUpdateCostText.text = $"{v}$";
+                });
 
             _playerService.BalanceStream
                 .Subscribe(value => 
@@ -46,42 +76,32 @@ namespace Source.UI
                 })
                 .AddTo(this);
 
-            for (int i = 0; i < _businessService.GetModifiersCount(_businessID); i++)
+            foreach (var modifierInfo in settings.Modifiers)
             {
-                var modifierButton = Instantiate(uiSettings.ModifierButtonPrefab, modifierButtonsRoot)
-                    .GetComponent<BusinessModifierButton>();
-                
-                var info = new ModifierInfo()
+                switch (modifierInfo)
                 {
-                    index = i,
-                    title = uiSettings.GetModifierTitle(i),
-                    prise = _businessService.GetModifierCost(_businessID, i),
-                    multiplayer = _businessService.GetModifierMultiplayer(_businessID, i),
-                    isBought = _businessService.GetModifierBoughtState(_businessID, i)
-                };
-                modifierButton.Initialize(_businessService, _businessID, info, _playerService);
-                modifierButton.Clicked += UpdateView;
+                    case IncreaseIncomeModifierInfo:
+                        CreateButton<IncreaseIncomeModifierView>(modifiersView.IncreaseIncomeModifierViewSettings, modifierInfo);
+                        break;
+                    case ReduceIncomeTimeModifierInfo:
+                        CreateButton<ReduceIncomeTimeModifierView>(modifiersView.ReduceIncomeTimeModifierViewSettings, modifierInfo);
+                        break;
+                }
+                
             }
-            
-            UpdateView();
         }
         
         private void OnLevelUpdateButtonClick()
         {
             _businessService.UpdateBusinessLevel(_businessID);
-            UpdateView();
         }
         
-        private void UpdateView()
+        private void CreateButton<T>(ModifierViewSettings modifierViewSettings, ModifierInfo modifierInfo) where T : ModifierView
         {
-            levelText.text =  _businessService.GetBusinessLevel(_businessID).ToString();
-            incomeText.text = _businessService.GetBusinessIncome(_businessID) + "$";
-            levelUpdateCostText.text = _businessService.GetBusinessUpdateCost(_businessID) + "$";
-        }
-
-        private void SetFillAmount(float fillAmount)
-        {
-            progress.fillAmount = fillAmount;
+            var modifierButton = Instantiate(modifierViewSettings.IncreaseIncomeModifierGO, modifierButtonsRoot)
+                .GetComponent<T>();
+            modifierButton.SetColors(modifierViewSettings.BoughtStateColor);
+            modifierButton.Initialize(modifierInfo, _playerService, _businessService);
         }
     }
 }

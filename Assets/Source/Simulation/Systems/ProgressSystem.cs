@@ -1,19 +1,17 @@
-﻿using System;
-using NanoEcs;
+﻿using NanoEcs;
 using UnityEngine;
 
 namespace Source.Simulation.Systems
 {
     public class ProgressSystem : SystemEcs, IExecutable
     {
-        private float delta => Time.deltaTime;
-        private GameGroup _businesses;
-        private GameGroup _activeBusinesses;
+        
+        private readonly GameGroup _activeBusinesses;
         private  Contexts _contexts;
+        private float delta => Time.deltaTime;
 
         public ProgressSystem(GameGroup businesses, Contexts contexts)
         {
-            _businesses = businesses;
             _contexts = contexts;
             
             _activeBusinesses = _contexts.Game.GetGroup()
